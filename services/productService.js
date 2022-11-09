@@ -18,24 +18,49 @@ class ProductsService {
     }
   }
 
-  create() {
-
+  async create(data) {
+    const newProduct = {
+      id : faker.datatype.uuid(),
+      ...data
+    }
+    this.products.push(newProduct);
+    return newProduct;
   }
 
-  getAll(limit) {
-    return this.products.slice(limit-1);
+  async getAll() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.products);
+      }, 5000);
+    })
   }
 
-  findOne(id) {
+  async findOne(id) {
+    const name = this.getTotal();
     return this.products.find(item => item.id === id);
   }
 
-  update() {
+  async update(id, data) {
+    const index = this.products.findIndex(item => item.id === id);
+    if (index === -1) {
+      throw new Error("Product Not Found!");
+    }
 
+    const product = this.products[index];
+    this.products[index] = {
+      ...product,
+      ...data
+    }
+    return this.products[index];
   }
 
-  delete() {
-
+  async delete(id) {
+    const index = this.products.findIndex(item => item.id === id);
+    if (index === -1) {
+      throw new Error("Product Not Found!");
+    }
+    this.products.splice(index, 1);
+    return { id };
   }
 
 }
