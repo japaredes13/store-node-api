@@ -1,6 +1,3 @@
-const { restart } = require("nodemon");
-const { stack } = require("../routes/productsRouter");
-
 function logErrors(err, req, res, next) {
   console.log('ejecutando logError....');
   console.log(err);
