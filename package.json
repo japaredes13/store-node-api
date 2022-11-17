@@ -2,6 +2,7 @@
   "name": "store-node-api",
   "version": "1.0.0",
   "description": "",
+  "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
@@ -26,6 +27,6 @@
     "joi": "^17.7.0"
   },
   "engines": {
-    "node": "16.x"
+    "node": "16.15.0"
   }
 }
