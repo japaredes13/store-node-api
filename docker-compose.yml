@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: store_postgres
+    environment:
+      POSTGRES_DB: store
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: root
+    restart: unless-stopped
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+    ports:
+      - "5400:5432"
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
