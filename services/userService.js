@@ -8,7 +8,8 @@ class UserService {
   }
 
   async create(data) {
-    return data;
+    const newUser = await models.User.create(data);
+    return newUser;
   }
 
   async find() {
@@ -17,17 +18,21 @@ class UserService {
   }
 
   async findOne(id) {
-    return { id };
+    const user = await models.User.findByPk(id);
+    if (!user) throw boom.notFound("Usuario no encontrado");
+
+    return user;
   }
 
-  async update(id, changes) {
-    return {
-      id,
-      changes,
-    };
+  async update(id, data) {
+    const user = await this.findOne(id);
+    const updateUser = await user.update(data);
+    return updateUser;
   }
 
   async delete(id) {
+    const user = await this.findOne(id);
+    await user.destroy();
     return { id };
   }
 }
